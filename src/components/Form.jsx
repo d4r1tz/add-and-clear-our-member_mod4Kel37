@@ -8,9 +8,11 @@ export default function Form() {
 
     const addMember = (event) => {
         event.preventDefault();
-        setMember(member.concat(element));
-        setCount(count+1);
-        setElement("");
+        if (element.trim() != '') {
+            setCount(count+1);
+            setMember(member.concat({"ID":count+1, "name_member":element}));
+            setElement("");
+        }
     }
 
     const changeHandler = (event) => {
@@ -28,7 +30,7 @@ export default function Form() {
                 <input placeholder='member' id='member' name='member' type='text' value={element} onChange={changeHandler} onBlur={changeHandler}/>
                 <button type="submit">Add member</button>
             </form>
-            <p>{member.map((elemen,index) => {return(<p key={index}>{elemen}</p>)})}</p>
+            <>{member.map((m) => {return <p>{m.ID}. {m.name_member}</p>})}</>
             <button onClick={clearArray}>CLEAR</button>
         </div>
     )
